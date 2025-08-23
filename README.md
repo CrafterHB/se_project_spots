@@ -8,7 +8,7 @@
   
 **Intro**
   
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
+Spots is a basic social media app where users can make a profile a post online.
   
 **Figma**  
   
@@ -17,3 +17,8 @@ This project is made so all the elements are displayed correctly on popular scre
 **Currently Done**
 
 This project currently features a user's profile and post. Nothing is interactable as of right now, but that is to be added in the future.
+
+**Link to Project**
+https://crafterhb.github.io/se_project_spots/
+
+
