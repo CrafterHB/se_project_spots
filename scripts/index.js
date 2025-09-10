@@ -1,4 +1,4 @@
-const initalCards = [
+const initialCards = [
   {
     name: "Val Thorens",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
@@ -56,6 +56,6 @@ postCloseButton.addEventListener("click", function () {
   newPostModal.classList.remove("modal_is-opened");
 });
 
-initalCards.forEach(function (element) {
+initialCards.forEach(function (element) {
   console.log(element["name"]);
 });
