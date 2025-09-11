@@ -34,12 +34,30 @@ const initialCards = [
 const editButton = document.querySelector(".profile__edit-btn");
 const editModal = document.querySelector("#edit-profile-modal");
 const editCloseButton = editModal.querySelector(".modal__close-btn");
+const editNameInput = editModal.querySelector("#profile-name-input");
+const editDescriptionInput = editModal.querySelector(
+  "#profile-description-input"
+);
+const editForm = editModal.querySelector(".modal__form");
+
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
 
 editButton.addEventListener("click", function () {
   editModal.classList.add("modal_is-opened");
+  editNameInput.value = profileName.textContent;
+  editDescriptionInput.value = profileDescription.textContent;
 });
 
 editCloseButton.addEventListener("click", function () {
+  editModal.classList.remove("modal_is-opened");
+});
+
+editForm.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+  profileName.textContent = editNameInput.value;
+  profileDescription.textContent = editDescriptionInput.value;
+
   editModal.classList.remove("modal_is-opened");
 });
 
@@ -47,6 +65,10 @@ editCloseButton.addEventListener("click", function () {
 const addButton = document.querySelector(".profile__add-btn");
 const newPostModal = document.querySelector("#new-post-modal");
 const postCloseButton = newPostModal.querySelector(".modal__close-btn");
+const postForm = newPostModal.querySelector(".modal__form");
+
+const postImageLink = newPostModal.querySelector("#profile-image-input");
+const postCaption = newPostModal.querySelector("#profile-caption-input");
 
 addButton.addEventListener("click", function () {
   newPostModal.classList.add("modal_is-opened");
@@ -58,4 +80,11 @@ postCloseButton.addEventListener("click", function () {
 
 initialCards.forEach(function (element) {
   console.log(element["name"]);
+});
+
+postForm.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+  console.log(postImageLink.value, postCaption.value);
+
+  newPostModal.classList.remove("modal_is-opened");
 });
