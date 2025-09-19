@@ -105,6 +105,47 @@
   border-radius: 8px;
 }
 
+.modal__image-container {
+  position: relative;
+}
+
+.modal__image {
+  max-width: 80vw;
+  max-height: 80vh;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+  display: block;
+}
+
+.modal__caption-container {
+  background-color: rgba(33, 33, 33, 1);
+  display: inline-block;
+  padding: 4px 8px 4px 8px;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+.modal__caption {
+  color: white;
+  margin: 0;
+
+  font-size: 20px;
+  text-wrap: wrap;
+}
+
+.modal_type_preview {
+  padding: 0 16px;
+}
+
+.modal__close_type_preview {
+  position: absolute;
+  top: 0;
+  right: -52.5px;
+}
+
 @media screen and (max-width: 627px) {
   .modal__container {
     max-width: 300px;
@@ -120,5 +161,14 @@
 
   .modal__input {
     font-size: 16px;
+  }
+
+  .modal__caption {
+    font-size: 16px;
+  }
+
+  .modal__close_type_preview {
+    top: -48px;
+    right: 0;
   }
 }

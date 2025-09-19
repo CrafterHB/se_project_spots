@@ -78,13 +78,13 @@ postCloseButton.addEventListener("click", function () {
   closeModal(newPostModal);
 });
 
-initialCards.forEach(function (element) {
-  console.log(element["name"]);
-});
-
 postForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
   console.log(postImageLink.value, postCaption.value);
+
+  const newPost = { link: postImageLink.value, name: postCaption.value };
+
+  getCardElement(newPost);
 
   closeModal(newPostModal);
 });
@@ -96,3 +96,67 @@ function openModal(modal) {
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
 }
+
+//Preview Modal
+const previewModal = document.querySelector(".modal_type_preview");
+const previewModalCloseBtn = previewModal.querySelector(".modal__close-btn");
+const previewModalImage = previewModal.querySelector(".modal__image");
+const previewModalCaption = previewModal.querySelector(".modal__caption");
+
+function openPreview(link, caption) {
+  console.log("is being pressed");
+  previewModalImage.src = link;
+  previewModalImage.alt = caption;
+  previewModalCaption.textContent = caption;
+
+  previewModal.classList.add("modal_is-opened");
+}
+
+previewModalCloseBtn.addEventListener("click", function () {
+  previewModal.classList.remove("modal_is-opened");
+});
+
+//Card Generation
+
+const cardTemplate = document
+  .querySelector("#card__template")
+  .content.querySelector(".card");
+const cardsList = document.querySelector(".cards__list");
+
+function getCardElement(data) {
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardTitle = cardElement.querySelector(".card__title");
+
+  cardImage.src = data.link;
+  cardImage.alt = data.name;
+  cardTitle.textContent = data.name;
+
+  //Like Button
+  const cardLikeButton = cardElement.querySelector(".card__like-btn");
+
+  cardLikeButton.addEventListener("click", function () {
+    cardLikeButton.classList.toggle("card__like-btn-liked");
+  });
+
+  //Delete Button
+  const cardRemoveButton = cardElement.querySelector(".card__remove-btn");
+
+  cardRemoveButton.addEventListener("click", function () {
+    cardElement.remove();
+  });
+
+  //Preview Button
+  cardImage.addEventListener("click", function () {
+    openPreview(data.link, data.name);
+  });
+
+  cardsList.prepend(cardElement);
+  return cardElement;
+}
+
+initialCards.forEach(function (element) {
+  console.log(element["name"]);
+
+  getCardElement(element);
+});
