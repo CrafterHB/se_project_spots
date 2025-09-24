@@ -45,6 +45,7 @@ const profileDescription = document.querySelector(".profile__description");
 
 editButton.addEventListener("click", function () {
   openModal(editModal);
+  resetValidation(editForm, [editNameInput, editDescriptionInput]);
   editNameInput.value = profileName.textContent;
   editDescriptionInput.value = profileDescription.textContent;
 });
@@ -66,6 +67,7 @@ const addButton = document.querySelector(".profile__add-btn");
 const newPostModal = document.querySelector("#new-post-modal");
 const postCloseButton = newPostModal.querySelector(".modal__close-btn");
 const postForm = newPostModal.querySelector(".modal__form");
+const postSubmitButton = newPostModal.querySelector(".modal__submit-btn");
 
 const postImageLink = newPostModal.querySelector("#profile-image-input");
 const postCaption = newPostModal.querySelector("#profile-caption-input");
@@ -80,21 +82,44 @@ postCloseButton.addEventListener("click", function () {
 
 postForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
-  console.log(postImageLink.value, postCaption.value);
+  //console.log(postImageLink.value, postCaption.value);
+  disableButton(postSubmitButton);
 
   const newPost = { link: postImageLink.value, name: postCaption.value };
 
   getCardElement(newPost);
+
+  postForm.reset(); //Resets Form
 
   closeModal(newPostModal);
 });
 
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
+  document.addEventListener("keydown", escapeKeyPressed);
+  document.addEventListener("click", outsideModalClicked);
+}
+
+function outsideModalClicked(evt) {
+  if (evt.target.classList.contains("modal")) {
+    const openedModal = document.querySelector(".modal_is-opened");
+    closeModal(openedModal);
+  }
+}
+
+function escapeKeyPressed(evt) {
+  console.log("test");
+  if (evt.key === "Escape") {
+    console.log("escape pressed");
+    const openedModal = document.querySelector(".modal_is-opened");
+    closeModal(openedModal);
+  }
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
+  document.removeEventListener("keydown", escapeKeyPressed);
+  document.removeEventListener("click", outsideModalClicked);
 }
 
 //Preview Modal
@@ -104,12 +129,12 @@ const previewModalImage = previewModal.querySelector(".modal__image");
 const previewModalCaption = previewModal.querySelector(".modal__caption");
 
 function openPreview(link, caption) {
-  console.log("is being pressed");
   previewModalImage.src = link;
   previewModalImage.alt = caption;
   previewModalCaption.textContent = caption;
 
-  previewModal.classList.add("modal_is-opened");
+  //previewModal.classList.add("modal_is-opened");
+  openModal(previewModal);
 }
 
 previewModalCloseBtn.addEventListener("click", function () {

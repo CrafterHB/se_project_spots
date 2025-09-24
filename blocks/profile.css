@@ -49,6 +49,8 @@
   background-color: #fcf5e5;
   opacity: 0.7;
   border: 0;
+
+  cursor: pointer;
 }
 
 .profile__edit-btn:hover {

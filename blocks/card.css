@@ -9,6 +9,8 @@
   display: block;
 
   border-radius: 8px;
+
+  cursor: pointer;
 }
 
 .card__content {
@@ -36,6 +38,8 @@
   border: none;
   background-color: transparent;
   opacity: 40%;
+
+  cursor: pointer;
 }
 
 .card__like-btn:hover {
@@ -62,6 +66,8 @@
   background-image: url("../images/removeDefault.svg");
   border: none;
   background-color: transparent;
+
+  cursor: pointer;
 }
 
 .card__remove-btn:hover {
