@@ -138,7 +138,8 @@ function openPreview(link, caption) {
 }
 
 previewModalCloseBtn.addEventListener("click", function () {
-  previewModal.classList.remove("modal_is-opened");
+  closeModal(previewModal);
+  //previewModal.classList.remove("modal_is-opened");
 });
 
 //Card Generation
