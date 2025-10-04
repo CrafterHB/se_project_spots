@@ -16,38 +16,6 @@ const api = new Api({
   },
 });
 
-const initialCards = [
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-
-  {
-    name: "Restaurant terrace",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-  },
-
-  {
-    name: "Tunnel with morning light",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-  },
-
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-];
-
 //Edit Profile Modal
 const editButton = document.querySelector(".profile__edit-btn");
 const editModal = document.querySelector("#edit-profile-modal");
@@ -94,7 +62,7 @@ editForm.addEventListener("submit", function (evt) {
 //Avatar Modal
 const avatarModal = document.querySelector("#avatar-modal");
 const avatarForm = avatarModal.querySelector(".modal__form");
-const avatarImageLink = avatarModal.querySelector("#profile-image-input");
+const avatarImageLink = avatarModal.querySelector("#avatar-image-input");
 const avatarCloseButton = avatarModal.querySelector(".modal__close-btn");
 
 const avatarImage = document.querySelector(".profile__avatar");
@@ -155,17 +123,28 @@ postForm.addEventListener("submit", function (evt) {
   //console.log(postImageLink.value, postCaption.value);
   disableButton(postSubmitButton);
 
-  const newPost = { link: postImageLink.value, name: postCaption.value };
+  const newPost = {
+    link: postImageLink.value,
+    name: postCaption.value,
+    _id: "temp",
+  };
 
   postSubmitButton.textContent = "Saving...";
-  api.addNewCard(postCaption.value, postImageLink.value).then(() => {
-    getCardElement(newPost);
+  api
+    .addNewCard(postCaption.value, postImageLink.value)
+    .then(() => {
+      api.loadLatestCard().then((card) => {
+        newPost._id = card[0]._id;
+      });
+    })
+    .then(() => {
+      getCardElement(newPost);
 
-    postForm.reset();
+      postForm.reset();
 
-    closeModal(newPostModal);
-    postSubmitButton.textContent = "Save";
-  });
+      closeModal(newPostModal);
+      postSubmitButton.textContent = "Save";
+    });
 });
 
 function openModal(modal) {

@@ -59,6 +59,15 @@ class Api {
       .catch((error) => console.log(error));
   }
 
+  loadLatestCard() {
+    //If you don't refresh the page and try to delete or like a card, it won't save, so I added this.
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+    })
+      .then((res) => res.json())
+      .catch((error) => console.log(error));
+  }
+
   addNewCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
